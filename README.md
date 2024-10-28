@@ -6,3 +6,4 @@ Esse é um projeto de base importada do material complementar do curso de TDS, o
 - Java 🍵
 - Git Bash 😺
 - GitHub 😺
+- MySQL 🐬

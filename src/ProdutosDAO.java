@@ -41,9 +41,8 @@ public class ProdutosDAO {
     
     
     public ArrayList<ProdutosDTO> listarProdutos(){
-          conn = new conectaDAO().connectDB();
+    conn = new conectaDAO().connectDB();
     String sql = "SELECT * FROM produtos";
-    
     try {
         prep = conn.prepareStatement(sql);
         resultset = prep.executeQuery();
@@ -69,5 +68,46 @@ public class ProdutosDAO {
     }
         return listagem;
     }   
+
+    
+    public void venderProduto(int id) {
+   conn = new conectaDAO().connectDB();
+    String sql = "UPDATE produtos SET status = 'Vendido' WHERE id = ? AND status = 'À Venda'";
+    try {
+        prep = conn.prepareStatement(sql);
+        prep.setInt(1, id);      
+        int rowsAffected = prep.executeUpdate();
+        if (rowsAffected > 0) {
+            JOptionPane.showMessageDialog(null, "Produto vendido com sucesso!");
+        } else {
+            JOptionPane.showMessageDialog(null, "Produto já foi vendido ou não está disponível.");
+        }
+    } catch (SQLException erro) {
+        JOptionPane.showMessageDialog(null, "Erro ao vender produto: " + erro.getMessage());
+    } finally {
+        try {
+            if (prep != null) prep.close();
+            if (conn != null) conn.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao fechar a conexão: " + e.getMessage());
+        }
+    } 
+    }
+    
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
